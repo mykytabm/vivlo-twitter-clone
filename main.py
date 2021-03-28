@@ -1,21 +1,29 @@
-from typing import Optional
+from flask import Flask, render_template
+from flask_bootstrap import Bootstrap
+from flask_moment import Moment
+from datetime import datetime
 
-from fastapi import FastAPI
+app = Flask(__name__)
 
-app = FastAPI()
+bootstrap = Bootstrap(app)
+
+moment = Moment(app)
 
 
-@app.get("/")
-def dashboard():
-    
-    # displays  the stock  screener dashboard / homepage
-    return {"Dashboard": "Home Page"}
+@app.route('/')
+def index():
+    return render_template('index.html', current_time=datetime.utcnow())
 
-@app.post("/stock") 
-def create_stock():
 
-    # created a stock and stores  it in database
-    return{
-        "code":"success",
-        "message":"stock created"
-    }
+@app.route('/user/<name>')
+def user(name):
+    return render_template('user.html', name=name)
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
