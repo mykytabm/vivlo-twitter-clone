@@ -90,6 +90,10 @@ class User(UserMixin, db.Model):
                 self.role = Role.query.filter_by(name='Administrator').first()
             if self.role is None:
                 self.role = Role.query.filter_by(default=True).first()
+        # set avatar hash
+        if self.email is not None and self.avatar_hash is None:
+            self.avatar_hash = hashlib.md5(
+                self.email.encode('utf-8')).hexdigest()
 
     def ping(self):
         self.last_seen = datetime.utcnow()
@@ -168,6 +172,9 @@ class User(UserMixin, db.Model):
         if self.query.filter_by(email=new_email).first() is not None:
             return False
         self.email = new_email
+        # set avatar hash
+        self.avatar_hash = hashlib.md5(
+            self.email.encode('utf-8')).hexdigest()
         db.session.add(self)
         return True
 
