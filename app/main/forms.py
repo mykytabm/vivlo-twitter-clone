@@ -1,10 +1,15 @@
 from flask_wtf import FlaskForm, Form
-from wtforms import StringField, SubmitField, TextAreaField, BooleanField,SelectField
-from wtforms.validators import DataRequired, Length, Email, Regexp
+from wtforms import StringField, SubmitField, TextAreaField, BooleanField, SelectField
+from wtforms.validators import DataRequired, Length, Email, Regexp, Required
 
 
 class NameForm(FlaskForm):
     name = StringField('What is your name?', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
+
+class PostForm(Form):
+    body = TextAreaField("What's on your mind?", validators=[Required()])
     submit = SubmitField('Submit')
 
 
