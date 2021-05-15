@@ -121,10 +121,11 @@ class User(UserMixin, db.Model):
     @staticmethod
     def add_self_follows():
         for user in User.query.all():
-            if not user.is_following(user):
-                user.follow(user)
-                db.session.add(user)
-                db.session.commit()
+            if user != None:
+                if not user.is_following(user):
+                    user.follow(user)
+                    db.session.add(user)
+                    db.session.commit()
 
     def ping(self):
         self.last_seen = datetime.utcnow()
