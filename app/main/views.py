@@ -55,6 +55,11 @@ def user(username):
     return render_template('user.html', user=user, posts=posts)
 
 
+@main.route('/about')
+def about():
+    return render_template('about.html')
+
+
 @main.route('/edit-profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():

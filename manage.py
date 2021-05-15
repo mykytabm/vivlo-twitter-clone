@@ -15,5 +15,19 @@ def make_shell_context():
 
 manager.add_command("shell", Shell(make_context=make_shell_context))
 manager.add_command('db', MigrateCommand)
+
+
+@manager.command
+def deploy():
+    """Run deployment tasks."""
+    from flask_migrate import upgrade
+    # migrate database to latest revision
+    upgrade()
+    # create user roles
+    Role.insert_roles()
+    # create self-follows for all users
+    User.add_self_follows()
+
+
 if __name__ == '__main__':
     manager.run()
