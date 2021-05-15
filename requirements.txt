@@ -1,8 +1,0 @@
-Werkzeug
-Flask-Login
-itsdangerous
-Flask-Mail
-Flask-Bootstrap
-Flask-WTF
-flask_migrate
-flask_script
