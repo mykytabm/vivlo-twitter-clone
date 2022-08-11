@@ -1,4 +1,4 @@
-# vivlo-twitter-bot
+# vivlo 
 
-twitter bot built with flask and jinja templates
+twitter clone built with flask and jinja templates
 https://vivlo.herokuapp.com/
